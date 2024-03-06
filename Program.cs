@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SalesWebMvc.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<SalesWebMvcContext>(options =>
+    options.UseMySql(builder.Configuration["ConnectionStrings:SalesWebMvcContext"], ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:SalesWebMvcContext"])));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
