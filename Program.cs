@@ -4,6 +4,7 @@ using SalesWebMvc.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SalesWebMvcContext>(options =>
     options.UseMySql(builder.Configuration["ConnectionStrings:SalesWebMvcContext"], ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:SalesWebMvcContext"])));
+builder.Services.AddScoped<SeedingService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -15,6 +16,9 @@ if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+else {
+    app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
 }
 
 app.UseHttpsRedirection();
