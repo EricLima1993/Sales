@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SalesWebMvcContext>(options => options.UseMySql(builder.Configuration["ConnectionStrings:SalesWebMvcContext"], ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:SalesWebMvcContext"])));
 builder.Services.AddScoped<SeedingService>();
 builder.Services.AddScoped<SellersService>();
+builder.Services.AddScoped<DepartmentService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
